@@ -1,5 +1,7 @@
 package org.calc
 
+private val numberRegex = Regex("""\d+(?:\.\d+)?""")
+
 class Tokenizer(private val input: String) {
   fun nextToken(): String? {
     if (input.isBlank()) {
@@ -9,9 +11,5 @@ class Tokenizer(private val input: String) {
       return input
     }
     throw IllegalArgumentException("Unknown input: $input")
-  }
-
-  companion object {
-    val numberRegex = Regex("""\d+(?:\.\d+)?""")
   }
 }
