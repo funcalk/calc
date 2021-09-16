@@ -4,7 +4,7 @@ fun main() {
   var input = readInput()
   while (input != null) {
     try {
-      val expression: Expression = Parser(Tokenizer(input)).parse()
+      val expression = Parser(Tokenizer(input)).parse()
       println(expression.calculate())
     } catch (e: IllegalArgumentException) {
       println("Error: ${e.message}")

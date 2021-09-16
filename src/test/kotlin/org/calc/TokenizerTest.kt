@@ -6,65 +6,65 @@ import org.junit.jupiter.api.assertThrows
 
 internal class TokenizerTest {
   @Test
-  fun `nextToken should return a token for single digit number`() {
+  fun `tokenizer should return a token for single digit number`() {
     val tokenizer = Tokenizer("1")
 
-    assertThat(tokenizer.nextToken()).isEqualTo("1")
+    assertThat(tokenizer.toList()).containsExactly("1")
   }
 
   @Test
-  fun `nextToken should return a token for multiple digits number`() {
+  fun `tokenizer should return a token for multiple digits number`() {
     val tokenizer = Tokenizer("12")
 
-    assertThat(tokenizer.nextToken()).isEqualTo("12")
+    assertThat(tokenizer.toList()).containsExactly("12")
   }
 
   @Test
-  fun `nextToken should return a token for fractional number`() {
+  fun `tokenizer should return a token for fractional number`() {
     val tokenizer = Tokenizer("1.2")
 
-    assertThat(tokenizer.nextToken()).isEqualTo("1.2")
+    assertThat(tokenizer.toList()).containsExactly("1.2")
   }
 
   @Test
-  fun `nextToken should returned null for an empty string`() {
+  fun `tokenizer should be empty for an empty string`() {
     val tokenizer = Tokenizer("")
 
-    assertThat(tokenizer.nextToken()).isNull()
+    assertThat(tokenizer.toList()).isEmpty()
   }
 
   @Test
-  fun `nextToken should return null for a blank string`() {
+  fun `tokenizer should be empty for a blank string`() {
     val tokenizer = Tokenizer("   ")
 
-    assertThat(tokenizer.nextToken()).isNull()
+    assertThat(tokenizer.toList()).isEmpty()
   }
 
   @Test
-  fun `nextToken should throw IllegalArgumentException for an unknown input`() {
+  fun `tokenizer should throw IllegalArgumentException for an unknown input`() {
     val tokenizer = Tokenizer("#")
 
-    assertThrows<IllegalArgumentException> { tokenizer.nextToken() }
+    assertThrows<IllegalArgumentException> { tokenizer.toList() }
   }
 
   @Test
-  fun `nextToken should throw IllegalArgumentException for a number using comma`() {
+  fun `tokenizer should throw IllegalArgumentException for a number using comma`() {
     val tokenizer = Tokenizer("1,2")
 
-    assertThrows<IllegalArgumentException> { tokenizer.nextToken() }
+    assertThrows<IllegalArgumentException> { tokenizer.toList() }
   }
 
   @Test
-  fun `nextToken should throw IllegalArgumentException for a number without integer part`() {
+  fun `tokenizer should throw IllegalArgumentException for a number without fractional part`() {
     val tokenizer = Tokenizer("1.")
 
-    assertThrows<IllegalArgumentException> { tokenizer.nextToken() }
+    assertThrows<IllegalArgumentException> { tokenizer.toList() }
   }
 
   @Test
-  fun `nextToken should throw IllegalArgumentException for a number without fractional part`() {
+  fun `tokenizer should throw IllegalArgumentException for a number without integer part`() {
     val tokenizer = Tokenizer(".2")
 
-    assertThrows<IllegalArgumentException> { tokenizer.nextToken() }
+    assertThrows<IllegalArgumentException> { tokenizer.toList() }
   }
 }
