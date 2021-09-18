@@ -17,4 +17,18 @@ internal class ExpressionTest {
 
     assertThat(sub.calculate()).isEqualTo(3.0)
   }
+
+  @Test
+  fun mult() {
+    val sub = Mult(Number(2.0), Mult(Number(6.0), Number(3.0)))
+
+    assertThat(sub.calculate()).isEqualTo(36.0)
+  }
+
+  @Test
+  fun div() {
+    val sub = Div(Number(8.0), Div(Number(6.0), Number(3.0)))
+
+    assertThat(sub.calculate()).isEqualTo(4.0)
+  }
 }

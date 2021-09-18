@@ -47,4 +47,39 @@ internal class ParserTest {
 
     assertThat(expression).isEqualTo(Minus(Minus(Number(6.0), Number(2.0)), Number(3.0)))
   }
+
+  @Test
+  fun `parse a mult`() {
+    val parser = Parser(Tokenizer(" 6  *    2    *   3    "))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(Mult(Mult(Number(6.0), Number(2.0)), Number(3.0)))
+  }
+
+  @Test
+  fun `parse a div`() {
+    val parser = Parser(Tokenizer("6 / 2 / 3"))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(Div(Div(Number(6.0), Number(2.0)), Number(3.0)))
+  }
+  
+  @Test
+  fun `operators priority`() {
+    val parser = Parser(Tokenizer("4 + 8 * 6 - 2 / 3"))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(
+      Minus(
+        Plus(
+          Number(4.0),
+          Mult(Number(8.0), Number(6.0))
+        ),
+        Div(Number(2.0), Number(3.0))
+      )
+    )
+  }
 }

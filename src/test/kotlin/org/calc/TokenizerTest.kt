@@ -95,4 +95,18 @@ internal class TokenizerTest {
 
     assertThat(tokenizer.toList()).containsExactly("-")
   }
+
+  @Test
+  fun `tokenizer should return a token for a mult`() {
+    val tokenizer = Tokenizer("*")
+
+    assertThat(tokenizer.toList()).containsExactly("*")
+  }
+
+  @Test
+  fun `tokenizer should return a token for a div`() {
+    val tokenizer = Tokenizer("/")
+
+    assertThat(tokenizer.toList()).containsExactly("/")
+  }
 }
