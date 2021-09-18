@@ -22,4 +22,11 @@ internal class ParserTest {
 
     assertThrows<IllegalArgumentException>{ parser.parse() }
   }
+  
+  @Test
+  fun `parse input with an extra token`() {
+    val parser = Parser(Tokenizer("1 2"))
+
+    assertThrows<IllegalArgumentException>{ parser.parse() }
+  }
 }
