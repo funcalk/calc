@@ -2,7 +2,7 @@ package org.calc
 
 import java.text.DecimalFormat
 
-private val numberFormat = DecimalFormat("0.#")
+private val numberFormat = DecimalFormat("0.#########")
 
 fun main() {
   var input = readInput()
