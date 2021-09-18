@@ -67,4 +67,18 @@ internal class TokenizerTest {
 
     assertThrows<IllegalArgumentException> { tokenizer.toList() }
   }
+
+  @Test
+  fun `tokenizer should return a token for a plus`() {
+    val tokenizer = Tokenizer("+")
+
+    assertThat(tokenizer.toList()).containsExactly("+")
+  }
+
+  @Test
+  fun `tokenizer should return tokens for an expression`() {
+    val tokenizer = Tokenizer(" 1 + 2 ")
+
+    assertThat(tokenizer.toList()).containsExactly("1", "+", "2")
+  }
 }

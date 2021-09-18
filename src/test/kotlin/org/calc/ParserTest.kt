@@ -10,7 +10,7 @@ internal class ParserTest {
   fun `parse a floating-point number`() {
     val parser = Parser(Tokenizer("1.1"))
 
-    val expression = assertNotNull(parser.parse())
+    val expression = assertNotNull(parser.parseExpression())
 
     assertThat(expression).isInstanceOf(Number::class.java)
     assertThat(expression.calculate()).isEqualTo(1.1)
@@ -20,13 +20,22 @@ internal class ParserTest {
   fun `parse empty input`() {
     val parser = Parser(Tokenizer(""))
 
-    assertThrows<IllegalArgumentException>{ parser.parse() }
+    assertThrows<IllegalArgumentException> { parser.parseExpression() }
   }
-  
+
   @Test
   fun `parse input with an extra token`() {
     val parser = Parser(Tokenizer("1 2"))
 
-    assertThrows<IllegalArgumentException>{ parser.parse() }
+    assertThrows<IllegalArgumentException> { parser.parseExpression() }
+  }
+
+  @Test
+  fun `parse a sum`() {
+    val parser = Parser(Tokenizer("   2    +   3    "))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(Plus(Number(2.0), Number(3.0)))
   }
 }

@@ -1,10 +1,31 @@
 package org.calc
 
-class Parser(private val tokenizer: Tokenizer) {
-  fun parse(): Expression {
-    val i = tokenizer.iterator()
-    val token = if (i.hasNext()) i.next() else throw IllegalArgumentException("Empty input")
-    if (i.hasNext()) throw IllegalArgumentException("Unexpected token: ${i.next()}")
-    return Number(token.toDouble())
+class Parser(tokenizer: Tokenizer) {
+  private val tokenIterator = tokenizer.iterator()
+
+  fun parseExpression(): Expression {
+    return parsePlus()
+  }
+
+  private fun parsePlus(): Expression {
+    val left = parseNumber()
+    return if (tokenIterator.hasNext()) {
+      val token = tokenIterator.next()
+      if (token == "+") {
+        val right = parseExpression()
+        Plus(left, right)
+      } else {
+        throw IllegalArgumentException("Unexpected token: $token")
+      }
+    } else {
+      left
+    }
+  }
+
+  private fun parseNumber(): Expression {
+    if (tokenIterator.hasNext()) {
+      return Number(tokenIterator.next().toDouble())
+    }
+    throw IllegalArgumentException("Expected a number")
   }
 }
