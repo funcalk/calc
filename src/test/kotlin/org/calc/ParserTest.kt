@@ -38,4 +38,13 @@ internal class ParserTest {
 
     assertThat(expression).isEqualTo(Plus(Number(2.0), Number(3.0)))
   }
+
+  @Test
+  fun `parse a sub`() {
+    val parser = Parser(Tokenizer(" 6  -    2    -   3    "))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(Minus(Minus(Number(6.0), Number(2.0)), Number(3.0)))
+  }
 }

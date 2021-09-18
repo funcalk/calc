@@ -14,3 +14,10 @@ data class Plus(
 ) : Expression() {
   override fun calculate(): Double = left.calculate() + right.calculate()
 }
+
+data class Minus(
+  private val left: Expression,
+  private val right: Expression
+) : Expression() {
+  override fun calculate(): Double = left.calculate() - right.calculate()
+}

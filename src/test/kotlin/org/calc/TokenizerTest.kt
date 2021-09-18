@@ -76,9 +76,23 @@ internal class TokenizerTest {
   }
 
   @Test
-  fun `tokenizer should return tokens for an expression`() {
+  fun `tokenizer should return tokens for an expression (+)`() {
     val tokenizer = Tokenizer(" 1 + 2 ")
 
     assertThat(tokenizer.toList()).containsExactly("1", "+", "2")
+  }
+
+  @Test
+  fun `tokenizer should return tokens for an expression (-)`() {
+    val tokenizer = Tokenizer(" 1 - 2 ")
+
+    assertThat(tokenizer.toList()).containsExactly("1", "-", "2")
+  }
+
+  @Test
+  fun `tokenizer should return a token for a minus`() {
+    val tokenizer = Tokenizer("-")
+
+    assertThat(tokenizer.toList()).containsExactly("-")
   }
 }
