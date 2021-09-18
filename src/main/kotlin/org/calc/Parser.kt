@@ -4,10 +4,6 @@ class Parser(tokenizer: Tokenizer) {
   private val tokenIterator = tokenizer.iterator()
 
   fun parseExpression(): Expression {
-    return parsePlus()
-  }
-
-  private fun parsePlus(): Expression {
     val left = parseNumber()
     return if (tokenIterator.hasNext()) {
       val token = tokenIterator.next()
