@@ -109,4 +109,11 @@ internal class TokenizerTest {
 
     assertThat(tokenizer.toList()).containsExactly("/")
   }
+
+  @Test
+  fun `tokenizer should return tokens for parentheses`() {
+    val tokenizer = Tokenizer("()")
+
+    assertThat(tokenizer.toList()).containsExactly("(", ")")
+  }
 }

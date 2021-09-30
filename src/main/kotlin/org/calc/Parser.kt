@@ -4,13 +4,22 @@ class Parser(tokenizer: Tokenizer) {
   private val tokenIterator = tokenizer.iterator()
   private var currentToken: String? = null
 
-  fun parseExpression(): Expression {
+
+  fun parse(): Expression {
+    val expression = parseExpression()
+    if (currentToken != null) {
+      throw IllegalArgumentException("Unexpected token: $currentToken")
+    }
+    return expression
+  }
+
+  private fun parseExpression(): Expression {
     var currentExpression = parseTerm()
     while (currentToken != null) {
       currentExpression = when (currentToken) {
         "+" -> Plus(currentExpression, parseTerm())
         "-" -> Minus(currentExpression, parseTerm())
-        else -> throw IllegalArgumentException("Unexpected token: $currentToken")
+        else -> break
       }
     }
     return currentExpression
@@ -33,22 +42,32 @@ class Parser(tokenizer: Tokenizer) {
     return when (currentToken) {
       "-" -> {
         readNextToken()
-        UnaryMinus(parseNumber())
+        UnaryMinus(parsePrimary())
       }
       "+" -> {
         readNextToken()
-        UnaryPlus(parseNumber())
+        UnaryPlus(parsePrimary())
       }
-      else -> parseNumber()
+      else -> parsePrimary()
     }
   }
 
-  private fun parseNumber(): Expression {
-    currentToken?.let { token ->
-      readNextToken()
-      token.toDoubleOrNull()?.let { return Number(it) } ?: throw IllegalArgumentException("Expected a number: $token")
+  private fun parsePrimary(): Expression {
+    return when (val token = currentToken) {
+      "(" -> {
+        val expression = parseExpression()
+        if (currentToken != ")") {
+          throw IllegalArgumentException("Expected )")
+        }
+        readNextToken()
+        expression
+      }
+      null -> throw IllegalArgumentException("Expected a number or (")
+      else -> {
+        readNextToken()
+        token.toDoubleOrNull()?.let { Number(it) } ?: throw IllegalArgumentException("Expected a number: $token")
+      }
     }
-    throw IllegalArgumentException("Expected a number")
   }
 
   private fun readNextToken() {
