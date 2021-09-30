@@ -65,10 +65,28 @@ internal class ParserTest {
 
     assertThat(expression).isEqualTo(Div(Div(Number(6.0), Number(2.0)), Number(3.0)))
   }
-  
+
+  @Test
+  fun `parse a unary minus`() {
+    val parser = Parser(Tokenizer("-6 + 2"))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(Plus(UnaryMinus(Number(6.0)), Number(2.0)))
+  }
+
+  @Test
+  fun `parse a unary plus`() {
+    val parser = Parser(Tokenizer("+6 + 2"))
+
+    val expression = parser.parseExpression()
+
+    assertThat(expression).isEqualTo(Plus(UnaryPlus(Number(6.0)), Number(2.0)))
+  }
+
   @Test
   fun `operators priority`() {
-    val parser = Parser(Tokenizer("4 + 8 * 6 - 2 / 3"))
+    val parser = Parser(Tokenizer("4 + -8 * +6 - 2 / -3"))
 
     val expression = parser.parseExpression()
 
@@ -76,9 +94,9 @@ internal class ParserTest {
       Minus(
         Plus(
           Number(4.0),
-          Mult(Number(8.0), Number(6.0))
+          Mult(UnaryMinus(Number(8.0)), UnaryPlus(Number(6.0)))
         ),
-        Div(Number(2.0), Number(3.0))
+        Div(Number(2.0), UnaryMinus(Number(3.0)))
       )
     )
   }

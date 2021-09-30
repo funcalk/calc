@@ -31,4 +31,18 @@ internal class ExpressionTest {
 
     assertThat(sub.calculate()).isEqualTo(4.0)
   }
+
+  @Test
+  fun `unary minus`() {
+    val sub = UnaryMinus(Number(4.0))
+
+    assertThat(sub.calculate()).isEqualTo(-4.0)
+  }
+
+  @Test
+  fun `unary plus`() {
+    val sub = UnaryPlus(Number(4.0))
+
+    assertThat(sub.calculate()).isEqualTo(4.0)
+  }
 }

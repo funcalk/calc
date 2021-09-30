@@ -35,3 +35,11 @@ data class Div(
 ) : Expression() {
   override fun calculate(): Double = left.calculate() / right.calculate()
 }
+
+data class UnaryMinus(private val number: Expression) : Expression() {
+  override fun calculate(): Double = -number.calculate()
+}
+
+data class UnaryPlus(private val number: Expression) : Expression() {
+  override fun calculate(): Double = number.calculate()
+}
