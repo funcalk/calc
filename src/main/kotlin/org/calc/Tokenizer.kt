@@ -1,6 +1,6 @@
 package org.calc
 
-private val tokenRegex = Regex("""\d+(?:\.\d+)?|\+|-|\*|/""")
+private val tokenRegex = Regex("""\d+(?:\.\d+)?|\+|-|\*|/|\(|\)""")
 
 class Tokenizer(private val input: String) : Sequence<String> {
   override fun iterator(): Iterator<String> = TokenIterator(input)
