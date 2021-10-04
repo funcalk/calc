@@ -1,4 +1,4 @@
-package org.calc
+package org.funcalk
 
 class Parser(tokenizer: Tokenizer) {
   private val tokenIterator = tokenizer.iterator()
