@@ -1,4 +1,4 @@
-package org.calc
+package org.funcalk
 
 import java.text.DecimalFormat
 

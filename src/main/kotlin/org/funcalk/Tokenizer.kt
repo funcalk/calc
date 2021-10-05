@@ -1,4 +1,4 @@
-package org.calc
+package org.funcalk
 
 private val tokenRegex = Regex("""\d+(?:\.\d+)?|\+|-|\*|/|\(|\)""")
 

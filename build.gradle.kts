@@ -3,7 +3,7 @@ plugins {
     kotlin("jvm") version "1.5.31"
 }
 
-group = "org.calc"
+group = "org.funcalk"
 version = "1.0"
 
 repositories {

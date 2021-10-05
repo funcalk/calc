@@ -1,4 +1,4 @@
-package org.calc
+package org.funcalk
 
 sealed class Expression {
   abstract fun calculate(): Double
