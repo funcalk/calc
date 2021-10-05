@@ -23,5 +23,7 @@ jobs:
           java-version: ${{ matrix.java }}
           check-latest: true
           cache: 'gradle'
-      - name: build & test
-        run: ./gradlew clean build --no-daemon
+      - name: build & test & publish
+        run: ./gradlew publish --no-daemon
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

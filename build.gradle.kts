@@ -5,6 +5,7 @@ plugins {
   application
   kotlin("jvm") version "1.5.31"
   id("com.zoltu.git-versioning") version "3.0.3"
+  `maven-publish`
 }
 
 group = "org.funcalk"
@@ -40,4 +41,22 @@ compileKotlin.kotlinOptions {
 
 application {
   mainClass.set("org.calc.REPLKt")
+}
+
+publishing {
+  publications {
+    register<MavenPublication>("library") {
+      from(components["java"])
+    }
+  }
+  repositories {
+    maven {
+      name = "githubPackages"
+      url = uri("https://maven.pkg.github.com/funcalk/funcalk-core")
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
 }
