@@ -1,10 +1,10 @@
 import org.gradle.api.JavaVersion.VERSION_1_8
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 
 plugins {
-  application
+  java
   kotlin("jvm") version "1.5.31"
   id("com.zoltu.git-versioning") version "3.0.3"
+  id("com.github.johnrengelman.shadow") version "7.1.0"
   `maven-publish`
 }
 
@@ -23,25 +23,34 @@ dependencies {
   testImplementation(kotlin("test"))
 }
 
-tasks.named<Test>("test") {
-  useJUnitPlatform()
+tasks {
+  java {
+    withSourcesJar()
+    sourceCompatibility = VERSION_1_8
+    targetCompatibility = VERSION_1_8
+  }
+  kotlin {
+    compileKotlin.configure {
+      kotlinOptions {
+        javaParameters = true
+        jvmTarget = VERSION_1_8.toString()
+      }
+    }
+  }
+  test {
+    useJUnitPlatform()
+  }
+  shadowJar {
+    manifest {
+      attributes(Pair("Main-Class", "org.funcalk.REPLKt"))
+    }
+    minimize()
+  }
+  build {
+    dependsOn(shadowJar)
+  }
 }
 
-java {
-  withSourcesJar()
-  sourceCompatibility = VERSION_1_8
-  targetCompatibility = VERSION_1_8
-}
-
-val compileKotlin: KotlinJvmCompile by tasks
-compileKotlin.kotlinOptions {
-  javaParameters = true
-  jvmTarget = VERSION_1_8.toString()
-}
-
-application {
-  mainClass.set("org.calc.REPLKt")
-}
 
 publishing {
   publications {
