@@ -21,7 +21,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-#          check-latest: true
+          check-latest: true
           cache: 'gradle'
       - name: build & test
         run: ./gradlew clean build --no-daemon
