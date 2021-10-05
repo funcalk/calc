@@ -24,6 +24,7 @@ jobs:
           check-latest: true
           cache: 'gradle'
       - name: build & test & publish
-        run: ./gradlew publish --stacktrace --no-daemon
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git show-ref --tags
+#        run: ./gradlew publish --stacktrace --no-daemon
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
