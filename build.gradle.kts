@@ -4,10 +4,10 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 plugins {
   application
   kotlin("jvm") version "1.5.31"
+  id("com.zoltu.git-versioning") version "3.0.3"
 }
 
 group = "org.funcalk"
-version = "1.0"
 
 repositories {
   mavenCentral()
