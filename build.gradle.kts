@@ -44,7 +44,7 @@ tasks {
   }
   shadowJar {
     manifest {
-      attributes(Pair("Main-Class", "org.funcalk.REPLKt"))
+      attributes(Pair("Main-Class", "org.funcalk.REPL"))
     }
     minimize()
   }

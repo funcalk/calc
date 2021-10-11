@@ -1,3 +1,5 @@
+@file:JvmName("REPL")
+
 package org.funcalk
 
 import java.text.DecimalFormat
