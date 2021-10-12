@@ -116,4 +116,32 @@ internal class TokenizerTest {
 
     assertThat(tokenizer.toList()).containsExactly("(", ")")
   }
+
+  @Test
+  fun `tokenizer should return token pi for pi`() {
+    val tokenizer = Tokenizer("pi")
+
+    assertThat(tokenizer.toList()).containsExactly("pi")
+  }
+
+  @Test
+  fun `tokenizer should return token e for e`() {
+    val tokenizer = Tokenizer("e")
+
+    assertThat(tokenizer.toList()).containsExactly("e")
+  }
+
+  @Test
+  fun `tokenizer should return token pi for PI`() {
+    val tokenizer = Tokenizer("PI")
+
+    assertThat(tokenizer.toList()).containsExactly("PI")
+  }
+
+  @Test
+  fun `tokenizer should return token e for E`() {
+    val tokenizer = Tokenizer("E")
+
+    assertThat(tokenizer.toList()).containsExactly("E")
+  }
 }

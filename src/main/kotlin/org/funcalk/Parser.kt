@@ -1,5 +1,7 @@
 package org.funcalk
 
+import java.lang.Math.*
+
 class Parser(tokenizer: Tokenizer) {
   private val tokenIterator = tokenizer.iterator()
   private var currentToken: String? = null
@@ -53,7 +55,7 @@ class Parser(tokenizer: Tokenizer) {
   }
 
   private fun parsePrimary(): Expression {
-    return when (val token = currentToken) {
+    return when (val token = currentToken?.lowercase()) {
       "(" -> {
         val expression = parseExpression()
         if (currentToken != ")") {
@@ -62,7 +64,15 @@ class Parser(tokenizer: Tokenizer) {
         readNextToken()
         expression
       }
-      null -> throw IllegalArgumentException("Expected a number or (")
+      "pi" -> {
+        readNextToken()
+        Number(PI)
+      }
+      "e" -> {
+        readNextToken()
+        Number(E)
+      }
+      null -> throw IllegalArgumentException("Expected a constant, a number or (")
       else -> {
         readNextToken()
         token.toDoubleOrNull()?.let { Number(it) } ?: throw IllegalArgumentException("Expected a number: $token")

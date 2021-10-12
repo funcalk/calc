@@ -116,4 +116,47 @@ internal class ParserTest {
       )
     )
   }
+
+  @Test
+  fun `pi should return pi value`() {
+    val parser = Parser(Tokenizer("pi"))
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Number(Math.PI))
+  }
+
+  @Test
+  fun `PI should return pi value`() {
+    val parser = Parser(Tokenizer("PI"))
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Number(Math.PI))
+  }
+
+  @Test
+  fun `e should return e value`() {
+    val parser = Parser(Tokenizer("e"))
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Number(Math.E))
+  }
+
+  @Test
+  fun `E should return e value`() {
+    val parser = Parser(Tokenizer("E"))
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Number(Math.E))
+  }
+
+  @Test
+  fun `unknown constant should throw IllegalArgumentException`() {
+    val parser = Parser(Tokenizer("unknown"))
+
+    assertThrows<IllegalArgumentException> { parser.parse() }
+  }
 }
