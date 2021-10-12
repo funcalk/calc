@@ -1,14 +1,14 @@
 import org.gradle.api.JavaVersion.VERSION_1_8
 
+group = "org.funcalk"
+
 plugins {
   java
+  `maven-publish`
   kotlin("jvm") version "1.5.31"
   id("com.zoltu.git-versioning") version "3.0.3"
   id("com.github.johnrengelman.shadow") version "7.1.0"
-  `maven-publish`
 }
-
-group = "org.funcalk"
 
 repositories {
   mavenCentral()
@@ -30,10 +30,12 @@ tasks {
     targetCompatibility = VERSION_1_8
   }
   kotlin {
-    compileKotlin.configure {
-      kotlinOptions {
-        javaParameters = true
-        jvmTarget = VERSION_1_8.toString()
+    listOf(compileKotlin, compileTestKotlin).forEach { task ->
+      task.configure {
+        kotlinOptions {
+          javaParameters = true
+          jvmTarget = VERSION_1_8.toString()
+        }
       }
     }
   }
@@ -42,7 +44,7 @@ tasks {
   }
   shadowJar {
     manifest {
-      attributes(Pair("Main-Class", "org.funcalk.REPLKt"))
+      attributes(Pair("Main-Class", "org.funcalk.REPL"))
     }
     minimize()
   }
@@ -51,10 +53,9 @@ tasks {
   }
 }
 
-
 publishing {
   publications {
-    register<MavenPublication>("library") {
+    register<MavenPublication>("maven") {
       from(components["java"])
     }
   }
