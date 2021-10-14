@@ -1,11 +1,11 @@
 package org.funcalk
 
-import java.lang.Math.*
+import java.lang.Math.E
+import java.lang.Math.PI
 
 class Parser(tokenizer: Tokenizer) {
   private val tokenIterator = tokenizer.iterator()
   private var currentToken: String? = null
-
 
   fun parse(): Expression {
     val expression = parseExpression()
