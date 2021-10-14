@@ -166,6 +166,6 @@ internal class ParserTest {
 
     val expression = parser.parse()
 
-    assertThat(expression).isEqualTo(Power(Number(2.0), Number(6.0)))
+    assertThat(expression).isEqualTo(Power(Number(6.0), Number(2.0)))
   }
 }
