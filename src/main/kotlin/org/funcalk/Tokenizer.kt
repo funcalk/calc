@@ -1,6 +1,6 @@
 package org.funcalk
 
-private val tokenRegex = Regex("""(?i)\d+(?:\.\d+)?|\+|-|\*|/|\(|\)|pi|e""")
+private val tokenRegex = Regex("""(?i)\d+(?:\.\d+)?|\+|-|\*|/|\(|\)|pi|e|\^""")
 
 class Tokenizer(private val input: String) : Sequence<String> {
   override fun iterator(): Iterator<String> = TokenIterator(input)

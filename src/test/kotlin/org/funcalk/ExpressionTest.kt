@@ -45,4 +45,11 @@ internal class ExpressionTest {
 
     assertThat(sub.calculate()).isEqualTo(4.0)
   }
+
+  @Test
+  fun `power`() {
+    val sub = Power(Number(3.0), Number(2.0))
+
+    assertThat(sub.calculate()).isEqualTo(9.0)
+  }
 }

@@ -144,4 +144,11 @@ internal class TokenizerTest {
 
     assertThat(tokenizer.toList()).containsExactly("E")
   }
+
+  @Test
+  fun `tokenizer should return token ^`() {
+    val tokenizer = Tokenizer("^")
+
+    assertThat(tokenizer.toList()).containsExactly("^")
+  }
 }

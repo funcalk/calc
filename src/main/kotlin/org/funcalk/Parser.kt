@@ -44,13 +44,24 @@ class Parser(tokenizer: Tokenizer) {
     return when (currentToken) {
       "-" -> {
         readNextToken()
-        UnaryMinus(parsePrimary())
+        UnaryMinus(parsePower())
       }
       "+" -> {
         readNextToken()
-        UnaryPlus(parsePrimary())
+        UnaryPlus(parsePower())
       }
-      else -> parsePrimary()
+      else -> parsePower()
+    }
+  }
+
+  private fun parsePower(): Expression {
+    val left = parsePrimary()
+    return when (currentToken) {
+      "^" -> {
+        readNextToken()
+        Power(left, parsePrimary())
+      }
+      else -> return left
     }
   }
 
