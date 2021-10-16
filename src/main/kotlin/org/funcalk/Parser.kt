@@ -1,11 +1,19 @@
 package org.funcalk
 
+import org.funcalk.TokenType.DIVIDE
+import org.funcalk.TokenType.LEFT_PARENTHESIS
+import org.funcalk.TokenType.MINUS
+import org.funcalk.TokenType.MULTIPLY
+import org.funcalk.TokenType.PLUS
+import org.funcalk.TokenType.POWER
+import org.funcalk.TokenType.RIGHT_PARENTHESIS
+import org.funcalk.TokenType.SYMBOL
 import java.lang.Math.E
 import java.lang.Math.PI
 
 class Parser(tokenizer: Tokenizer) {
   private val tokenIterator = tokenizer.iterator()
-  private var currentToken: String? = null
+  private var currentToken: Token? = null
 
   fun parse(): Expression {
     val expression = parseExpression()
@@ -18,9 +26,9 @@ class Parser(tokenizer: Tokenizer) {
   private fun parseExpression(): Expression {
     var currentExpression = parseTerm()
     while (currentToken != null) {
-      currentExpression = when (currentToken) {
-        "+" -> Plus(currentExpression, parseTerm())
-        "-" -> Minus(currentExpression, parseTerm())
+      currentExpression = when (currentToken?.type) {
+        PLUS -> Plus(currentExpression, parseTerm())
+        MINUS -> Minus(currentExpression, parseTerm())
         else -> break
       }
     }
@@ -30,9 +38,9 @@ class Parser(tokenizer: Tokenizer) {
   private fun parseTerm(): Expression {
     var currentExpression = parseFactor()
     while (currentToken != null) {
-      currentExpression = when (currentToken) {
-        "*" -> Mult(currentExpression, parseFactor())
-        "/" -> Div(currentExpression, parseFactor())
+      currentExpression = when (currentToken?.type) {
+        MULTIPLY -> Mult(currentExpression, parseFactor())
+        DIVIDE -> Div(currentExpression, parseFactor())
         else -> break
       }
     }
@@ -41,14 +49,14 @@ class Parser(tokenizer: Tokenizer) {
 
   private fun parseFactor(): Expression {
     readNextToken()
-    return when (currentToken) {
-      "-" -> {
-        readNextToken()
-        UnaryMinus(parsePower())
-      }
-      "+" -> {
+    return when (currentToken?.type) {
+      PLUS -> {
         readNextToken()
         UnaryPlus(parsePower())
+      }
+      MINUS -> {
+        readNextToken()
+        UnaryMinus(parsePower())
       }
       else -> parsePower()
     }
@@ -56,8 +64,8 @@ class Parser(tokenizer: Tokenizer) {
 
   private fun parsePower(): Expression {
     val left = parsePrimary()
-    return when (currentToken) {
-      "^" -> {
+    return when (currentToken?.type) {
+      POWER -> {
         readNextToken()
         Power(left, parsePrimary())
       }
@@ -66,27 +74,28 @@ class Parser(tokenizer: Tokenizer) {
   }
 
   private fun parsePrimary(): Expression {
-    return when (val token = currentToken?.lowercase()) {
-      "(" -> {
+    val token = currentToken ?: throw IllegalArgumentException("Expected a constant, a number or (")
+    return when (token.type) {
+      LEFT_PARENTHESIS -> {
         val expression = parseExpression()
-        if (currentToken != ")") {
+        if (currentToken?.type != RIGHT_PARENTHESIS) {
           throw IllegalArgumentException("Expected )")
         }
         readNextToken()
         expression
       }
-      "pi" -> {
+      SYMBOL -> {
+        val number = when (token.value.lowercase()) {
+          "pi" -> PI
+          "e" -> E
+          else -> throw IllegalArgumentException("Unknown symbol: ${token.value}")
+        }
         readNextToken()
-        Number(PI)
+        Number(number)
       }
-      "e" -> {
-        readNextToken()
-        Number(E)
-      }
-      null -> throw IllegalArgumentException("Expected a constant, a number or (")
       else -> {
         readNextToken()
-        token.toDoubleOrNull()?.let { Number(it) } ?: throw IllegalArgumentException("Expected a number: $token")
+        token.value.toDoubleOrNull()?.let { Number(it) } ?: throw IllegalArgumentException("Expected a number: $token")
       }
     }
   }

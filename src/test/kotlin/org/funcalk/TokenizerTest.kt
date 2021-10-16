@@ -1,6 +1,7 @@
 package org.funcalk
 
 import org.assertj.core.api.Assertions.assertThat
+import org.funcalk.TokenType.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -9,21 +10,27 @@ internal class TokenizerTest {
   fun `tokenizer should return a token for single digit number`() {
     val tokenizer = Tokenizer("1")
 
-    assertThat(tokenizer.toList()).containsExactly("1")
+    val token = Token("1")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(NUMBER)
   }
 
   @Test
   fun `tokenizer should return a token for multiple digits number`() {
     val tokenizer = Tokenizer("12")
 
-    assertThat(tokenizer.toList()).containsExactly("12")
+    val token = Token("12")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(NUMBER)
   }
 
   @Test
   fun `tokenizer should return a token for fractional number`() {
     val tokenizer = Tokenizer("1.2")
 
-    assertThat(tokenizer.toList()).containsExactly("1.2")
+    val token = Token("1.2")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(NUMBER)
   }
 
   @Test
@@ -72,83 +79,103 @@ internal class TokenizerTest {
   fun `tokenizer should return a token for a plus`() {
     val tokenizer = Tokenizer("+")
 
-    assertThat(tokenizer.toList()).containsExactly("+")
-  }
-
-  @Test
-  fun `tokenizer should return tokens for an expression (+)`() {
-    val tokenizer = Tokenizer(" 1 + 2 ")
-
-    assertThat(tokenizer.toList()).containsExactly("1", "+", "2")
-  }
-
-  @Test
-  fun `tokenizer should return tokens for an expression (-)`() {
-    val tokenizer = Tokenizer(" 1 - 2 ")
-
-    assertThat(tokenizer.toList()).containsExactly("1", "-", "2")
+    val token = Token("+")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(PLUS)
   }
 
   @Test
   fun `tokenizer should return a token for a minus`() {
     val tokenizer = Tokenizer("-")
 
-    assertThat(tokenizer.toList()).containsExactly("-")
+    val token = Token("-")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(MINUS)
+  }
+
+  @Test
+  fun `tokenizer should return tokens for an expression (+)`() {
+    val tokenizer = Tokenizer(" 1 + 2 ")
+
+    assertThat(tokenizer.toList().map { it.value }).containsExactly("1", "+", "2")
+  }
+
+  @Test
+  fun `tokenizer should return tokens for an expression (-)`() {
+    val tokenizer = Tokenizer(" 1 - 2 ")
+
+    assertThat(tokenizer.toList().map { it.value }).containsExactly("1", "-", "2")
   }
 
   @Test
   fun `tokenizer should return a token for a mult`() {
     val tokenizer = Tokenizer("*")
 
-    assertThat(tokenizer.toList()).containsExactly("*")
+    val token = Token("*")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(MULTIPLY)
   }
 
   @Test
   fun `tokenizer should return a token for a div`() {
     val tokenizer = Tokenizer("/")
 
-    assertThat(tokenizer.toList()).containsExactly("/")
-  }
-
-  @Test
-  fun `tokenizer should return tokens for parentheses`() {
-    val tokenizer = Tokenizer("()")
-
-    assertThat(tokenizer.toList()).containsExactly("(", ")")
-  }
-
-  @Test
-  fun `tokenizer should return symbol token`() {
-    val tokenizer = Tokenizer("pi")
-
-    assertThat(tokenizer.toList()).containsExactly("pi")
-  }
-
-  @Test
-  fun `tokenizer should return symbol token preserving case`() {
-    val tokenizer = Tokenizer("PI")
-
-    assertThat(tokenizer.toList()).containsExactly("PI")
-  }
-
-  @Test
-  fun `tokenizer should return symbol token with digits`() {
-    val tokenizer = Tokenizer("x2")
-
-    assertThat(tokenizer.toList()).containsExactly("x2")
-  }
-
-  @Test
-  fun `tokenizer should return token e for E`() {
-    val tokenizer = Tokenizer("E")
-
-    assertThat(tokenizer.toList()).containsExactly("E")
+    val token = Token("/")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(DIVIDE)
   }
 
   @Test
   fun `tokenizer should return token ^`() {
     val tokenizer = Tokenizer("^")
 
-    assertThat(tokenizer.toList()).containsExactly("^")
+    val token = Token("^")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(POWER)
+  }
+
+  @Test
+  fun `tokenizer should return tokens for left parenthesis`() {
+    val tokenizer = Tokenizer("(")
+
+    val token = Token("(")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(LEFT_PARENTHESIS)
+  }
+
+  @Test
+  fun `tokenizer should return tokens for right parenthesis`() {
+    val tokenizer = Tokenizer(")")
+
+    val token = Token(")")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(RIGHT_PARENTHESIS)
+  }
+
+  @Test
+  fun `tokenizer should return symbol token`() {
+    val tokenizer = Tokenizer("pi")
+
+    val token = Token("pi")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(SYMBOL)
+  }
+
+  @Test
+  fun `tokenizer should return symbol token preserving case`() {
+    val tokenizer = Tokenizer("PI")
+
+    val token = Token("PI")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(SYMBOL)
+  }
+
+  @Test
+  fun `tokenizer should return symbol token with digits`() {
+    val tokenizer = Tokenizer("x2")
+
+    val token = Token("x2")
+    assertThat(tokenizer.toList()).containsExactly(token)
+    assertThat(token.type).isEqualTo(SYMBOL)
   }
 }
