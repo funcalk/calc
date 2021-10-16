@@ -118,24 +118,24 @@ internal class TokenizerTest {
   }
 
   @Test
-  fun `tokenizer should return token pi for pi`() {
+  fun `tokenizer should return symbol token`() {
     val tokenizer = Tokenizer("pi")
 
     assertThat(tokenizer.toList()).containsExactly("pi")
   }
 
   @Test
-  fun `tokenizer should return token e for e`() {
-    val tokenizer = Tokenizer("e")
-
-    assertThat(tokenizer.toList()).containsExactly("e")
-  }
-
-  @Test
-  fun `tokenizer should return token pi for PI`() {
+  fun `tokenizer should return symbol token preserving case`() {
     val tokenizer = Tokenizer("PI")
 
     assertThat(tokenizer.toList()).containsExactly("PI")
+  }
+
+  @Test
+  fun `tokenizer should return symbol token with digits`() {
+    val tokenizer = Tokenizer("x2")
+
+    assertThat(tokenizer.toList()).containsExactly("x2")
   }
 
   @Test
