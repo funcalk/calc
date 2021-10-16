@@ -61,7 +61,7 @@ class Parser(tokenizer: Tokenizer) {
         readNextToken()
         Power(left, parsePrimary())
       }
-      else -> return left
+      else -> left
     }
   }
 
