@@ -1,5 +1,7 @@
 package org.funcalk
 
+import kotlin.math.pow
+
 sealed class Expression {
   abstract fun calculate(): Double
 }
@@ -34,6 +36,13 @@ data class Div(
   private val right: Expression
 ) : Expression() {
   override fun calculate(): Double = left.calculate() / right.calculate()
+}
+
+data class Power(
+  private val left: Expression,
+  private val right: Expression
+) : Expression() {
+  override fun calculate(): Double = left.calculate().pow(right.calculate())
 }
 
 data class UnaryMinus(private val number: Expression) : Expression() {

@@ -159,4 +159,13 @@ internal class ParserTest {
 
     assertThrows<IllegalArgumentException> { parser.parse() }
   }
+
+  @Test
+  fun `parse a power`() {
+    val parser = Parser(Tokenizer("6^2"))
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Power(Number(6.0), Number(2.0)))
+  }
 }
