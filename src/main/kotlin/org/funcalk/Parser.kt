@@ -61,7 +61,7 @@ class Parser(tokenizer: Tokenizer) {
         readNextToken()
         Power(left, parsePrimary())
       }
-      else -> return left
+      else -> left
     }
   }
 
@@ -83,7 +83,7 @@ class Parser(tokenizer: Tokenizer) {
         readNextToken()
         Number(E)
       }
-      null -> throw IllegalArgumentException("Expected a constant, a number or (")
+      null -> throw IllegalArgumentException("Expected a number, a constant or (")
       else -> {
         readNextToken()
         token.toDoubleOrNull()?.let { Number(it) } ?: throw IllegalArgumentException("Expected a number: $token")

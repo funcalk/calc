@@ -5,9 +5,19 @@ number and higher-order functions.
 
 Expression BNF
 --------------
-* &lt;expression> ::= &lt;term> | &lt;expression> + &lt;term> | &lt;expression> - &lt;term>
-* &lt;term> ::= &lt;factor> | &lt;term> * &lt;factor> | &lt;term> / &lt;factor>
-* &lt;factor> ::= &lt;power> | -&lt;power> | +&lt;power>
-* &lt;power> ::= &lt;primary> | &lt;primary>^&lt;primary>
-* &lt;primary> ::= [0-9]+(0.[0-9])? | (&lt;expression>) | &lt;constant>
-* &lt;constant> ::= [a-zA-Z]+
+    <expression> ::= <term> |
+                     <expression> + <term> |
+                     <expression> - <term>
+    <term>       ::= <factor> |
+                     <term> * <factor> |
+                     <term> / <factor>
+    <factor>     ::= power> |
+                    - <power> |
+                    + <power>
+    <power>      ::= <primary> |
+                     <primary> ^ <primary>
+    <primary>    ::= <number> |
+                     <constant> |
+                     (<expression>)
+    <number>     ::= [0-9]+(.[0-9])?
+    <constant>   ::= [a-zA-Z0-9]+
