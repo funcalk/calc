@@ -69,12 +69,12 @@ class Parser(tokenizer: Tokenizer) {
         readNextToken()
         Power(left, parsePrimary())
       }
-      else -> return left
+      else -> left
     }
   }
 
   private fun parsePrimary(): Expression {
-    val token = currentToken ?: throw IllegalArgumentException("Expected a constant, a number or (")
+    val token = currentToken ?: throw IllegalArgumentException("Expected a number, a constant or (")
     return when (token.type) {
       LEFT_PARENTHESIS -> {
         val expression = parseExpression()
