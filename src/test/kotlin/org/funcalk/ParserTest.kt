@@ -8,7 +8,7 @@ import kotlin.test.assertNotNull
 internal class ParserTest {
   @Test
   fun `parse a floating-point number`() {
-    val parser = Parser(Tokenizer("1.1"))
+    val parser = Parser("1.1")
 
     val expression = assertNotNull(parser.parse())
 
@@ -18,21 +18,21 @@ internal class ParserTest {
 
   @Test
   fun `parse empty input`() {
-    val parser = Parser(Tokenizer(""))
+    val parser = Parser("")
 
     assertThrows<IllegalArgumentException> { parser.parse() }
   }
 
   @Test
   fun `parse input with an extra token`() {
-    val parser = Parser(Tokenizer("1 2"))
+    val parser = Parser("1 2")
 
     assertThrows<IllegalArgumentException> { parser.parse() }
   }
 
   @Test
   fun `parse a sum`() {
-    val parser = Parser(Tokenizer("   2    +   3    "))
+    val parser = Parser("   2    +   3    ")
 
     val expression = parser.parse()
 
@@ -41,7 +41,7 @@ internal class ParserTest {
 
   @Test
   fun `parse a sub`() {
-    val parser = Parser(Tokenizer(" 6  -    2    -   3    "))
+    val parser = Parser(" 6  -    2    -   3    ")
 
     val expression = parser.parse()
 
@@ -50,7 +50,7 @@ internal class ParserTest {
 
   @Test
   fun `parse a mult`() {
-    val parser = Parser(Tokenizer(" 6  *    2    *   3    "))
+    val parser = Parser(" 6  *    2    *   3    ")
 
     val expression = parser.parse()
 
@@ -59,7 +59,7 @@ internal class ParserTest {
 
   @Test
   fun `parse a div`() {
-    val parser = Parser(Tokenizer("6 / 2 / 3"))
+    val parser = Parser("6 / 2 / 3")
 
     val expression = parser.parse()
 
@@ -68,7 +68,7 @@ internal class ParserTest {
 
   @Test
   fun `parse a unary minus`() {
-    val parser = Parser(Tokenizer("-6 + 2"))
+    val parser = Parser("-6 + 2")
 
     val expression = parser.parse()
 
@@ -77,7 +77,7 @@ internal class ParserTest {
 
   @Test
   fun `parse a unary plus`() {
-    val parser = Parser(Tokenizer("+6 + 2"))
+    val parser = Parser("+6 + 2")
 
     val expression = parser.parse()
 
@@ -86,7 +86,7 @@ internal class ParserTest {
 
   @Test
   fun `operators priority with parentheses`() {
-    val parser = Parser(Tokenizer("(4 + 2) * 2"))
+    val parser = Parser("(4 + 2) * 2")
 
     val expression = parser.parse()
 
@@ -95,14 +95,14 @@ internal class ParserTest {
 
   @Test
   fun `parse input without closing parenthesis`() {
-    val parser = Parser(Tokenizer("(1 + 2"))
+    val parser = Parser("(1 + 2")
 
     assertThrows<IllegalArgumentException> { parser.parse() }
   }
 
   @Test
   fun `operators priority`() {
-    val parser = Parser(Tokenizer("4 + -8 * +6 - 2 / -3"))
+    val parser = Parser("4 + -8 * +6 - 2 / -3")
 
     val expression = parser.parse()
 
@@ -119,7 +119,7 @@ internal class ParserTest {
 
   @Test
   fun `pi should return pi value`() {
-    val parser = Parser(Tokenizer("pi"))
+    val parser = Parser("pi")
 
     val expression = parser.parse()
 
@@ -128,7 +128,7 @@ internal class ParserTest {
 
   @Test
   fun `PI should return pi value`() {
-    val parser = Parser(Tokenizer("PI"))
+    val parser = Parser("PI")
 
     val expression = parser.parse()
 
@@ -137,7 +137,7 @@ internal class ParserTest {
 
   @Test
   fun `e should return e value`() {
-    val parser = Parser(Tokenizer("e"))
+    val parser = Parser("e")
 
     val expression = parser.parse()
 
@@ -146,7 +146,7 @@ internal class ParserTest {
 
   @Test
   fun `E should return e value`() {
-    val parser = Parser(Tokenizer("E"))
+    val parser = Parser("E")
 
     val expression = parser.parse()
 
@@ -155,14 +155,14 @@ internal class ParserTest {
 
   @Test
   fun `unknown constant should throw IllegalArgumentException`() {
-    val parser = Parser(Tokenizer("unknown"))
+    val parser = Parser("unknown")
 
     assertThrows<IllegalArgumentException> { parser.parse() }
   }
 
   @Test
   fun `parse a power`() {
-    val parser = Parser(Tokenizer("6^2"))
+    val parser = Parser("6^2")
 
     val expression = parser.parse()
 
