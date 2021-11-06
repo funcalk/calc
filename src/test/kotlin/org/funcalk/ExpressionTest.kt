@@ -2,54 +2,71 @@ package org.funcalk
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 internal class ExpressionTest {
   @Test
   fun sum() {
-    val sum = Plus(Number(1.0), Plus(Number(2.0), Number(3.0)))
+    val exp = Plus(Number(1.0), Plus(Number(2.0), Number(3.0)))
 
-    assertThat(sum.calculate()).isEqualTo(6.0)
+    assertThat(exp.calculate()).isEqualTo(6.0)
   }
 
   @Test
   fun sub() {
-    val sub = Minus(Number(6.0), Minus(Number(6.0), Number(3.0)))
+    val exp = Minus(Number(6.0), Minus(Number(6.0), Number(3.0)))
 
-    assertThat(sub.calculate()).isEqualTo(3.0)
+    assertThat(exp.calculate()).isEqualTo(3.0)
   }
 
   @Test
   fun mult() {
-    val sub = Mult(Number(2.0), Mult(Number(6.0), Number(3.0)))
+    val exp = Mult(Number(2.0), Mult(Number(6.0), Number(3.0)))
 
-    assertThat(sub.calculate()).isEqualTo(36.0)
+    assertThat(exp.calculate()).isEqualTo(36.0)
   }
 
   @Test
   fun div() {
-    val sub = Div(Number(8.0), Div(Number(6.0), Number(3.0)))
+    val exp = Div(Number(8.0), Div(Number(6.0), Number(3.0)))
 
-    assertThat(sub.calculate()).isEqualTo(4.0)
+    assertThat(exp.calculate()).isEqualTo(4.0)
   }
 
   @Test
   fun `unary minus`() {
-    val sub = UnaryMinus(Number(4.0))
+    val exp = UnaryMinus(Number(4.0))
 
-    assertThat(sub.calculate()).isEqualTo(-4.0)
+    assertThat(exp.calculate()).isEqualTo(-4.0)
   }
 
   @Test
   fun `unary plus`() {
-    val sub = UnaryPlus(Number(4.0))
+    val exp = UnaryPlus(Number(4.0))
 
-    assertThat(sub.calculate()).isEqualTo(4.0)
+    assertThat(exp.calculate()).isEqualTo(4.0)
   }
 
   @Test
-  fun `power`() {
-    val sub = Power(Number(3.0), Number(2.0))
+  fun power() {
+    val exp = Power(Number(3.0), Number(2.0))
 
-    assertThat(sub.calculate()).isEqualTo(9.0)
+    assertThat(exp.calculate()).isEqualTo(9.0)
+  }
+
+  @Test
+  fun variable() {
+    val exp = Var("x")
+    val vars = mapOf("x" to 2.0)
+
+    assertThat(exp.calculate(vars)).isEqualTo(2.0)
+  }
+
+  @Test
+  fun `unknown variable`() {
+    val exp = Var("x")
+
+    val e = assertThrows<NoSuchElementException> { exp.calculate() }
+    assertThat(e.message?.lowercase()).contains("variable", "x")
   }
 }

@@ -17,7 +17,7 @@ Expression BNF
     <power>      ::= <primary> |
                      <primary> ^ <primary>
     <primary>    ::= <number> |
-                     <constant> |
+                     <symbol> |
                      (<expression>)
     <number>     ::= [0-9]+(.[0-9])?
-    <constant>   ::= [a-zA-Z0-9]+
+    <symbol>   ::= [a-zA-Z0-9]+

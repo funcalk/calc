@@ -85,13 +85,13 @@ class Parser(input: String) {
         expression
       }
       SYMBOL -> {
-        val number = when (token.value.lowercase()) {
-          "pi" -> PI
-          "e" -> E
-          else -> throw IllegalArgumentException("Unknown symbol: ${token.value}")
+        val expression = when (token.value.lowercase()) {
+          "pi" -> Number(PI)
+          "e" -> Number(E)
+          else -> Var(token.value)
         }
         readNextToken()
-        Number(number)
+        expression
       }
       else -> {
         readNextToken()

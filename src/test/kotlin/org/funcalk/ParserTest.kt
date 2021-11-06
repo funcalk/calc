@@ -154,18 +154,20 @@ internal class ParserTest {
   }
 
   @Test
-  fun `unknown constant should throw IllegalArgumentException`() {
-    val parser = Parser("unknown")
-
-    assertThrows<IllegalArgumentException> { parser.parse() }
-  }
-
-  @Test
   fun `parse a power`() {
     val parser = Parser("6^2")
 
     val expression = parser.parse()
 
     assertThat(expression).isEqualTo(Power(Number(6.0), Number(2.0)))
+  }
+
+  @Test
+  fun `parse variable`() {
+    val parser = Parser("x^2")
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Power(Var("x"), Number(2.0)))
   }
 }
