@@ -1,14 +1,14 @@
-package org.funcalk
+package org.funcalk.expression
 
-class Tokenizer(private val input: String) : Sequence<Token> {
+internal class Tokenizer(private val input: String) : Sequence<Token> {
   override fun iterator(): Iterator<Token> = TokenIterator(input)
 }
 
-data class Token(val value: String) {
+internal data class Token(val value: String) {
   val type: TokenType = TokenType.values().first { it.regex.matches(value) }
 }
 
-enum class TokenType(val regex: Regex) {
+internal enum class TokenType(val regex: Regex) {
   NUMBER(Regex("""\d+(?:\.\d+)?""")),
   SYMBOL(Regex("""\w+""")),
   LEFT_PARENTHESIS(Regex("""\(""")),

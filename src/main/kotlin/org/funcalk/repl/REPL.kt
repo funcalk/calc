@@ -1,17 +1,18 @@
 @file:JvmName("REPL")
 
-package org.funcalk
+package org.funcalk.repl
 
 import java.text.DecimalFormat
 
 private val numberFormat = DecimalFormat("0.#########")
 
 fun main() {
+  val vars = mutableMapOf<String, Double>()
   var input = readInput()
   while (input != null) {
     try {
-      val expression = Parser(input).parse()
-      println(numberFormat.format(expression.calculate()))
+      val statement = StatementParser(input).parse()
+      println(numberFormat.format(statement.evaluate(vars)))
     } catch (e: IllegalArgumentException) {
       println("Error: ${e.message}")
     }
@@ -20,6 +21,6 @@ fun main() {
 }
 
 private fun readInput(): String? {
-  print("Enter an expression: ")
+  print("Enter a statement: ")
   return readLine()
 }

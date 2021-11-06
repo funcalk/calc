@@ -1,13 +1,13 @@
-package org.funcalk
+package org.funcalk.expression
 
-import org.funcalk.TokenType.DIVIDE
-import org.funcalk.TokenType.LEFT_PARENTHESIS
-import org.funcalk.TokenType.MINUS
-import org.funcalk.TokenType.MULTIPLY
-import org.funcalk.TokenType.PLUS
-import org.funcalk.TokenType.POWER
-import org.funcalk.TokenType.RIGHT_PARENTHESIS
-import org.funcalk.TokenType.SYMBOL
+import org.funcalk.expression.TokenType.DIVIDE
+import org.funcalk.expression.TokenType.LEFT_PARENTHESIS
+import org.funcalk.expression.TokenType.MINUS
+import org.funcalk.expression.TokenType.MULTIPLY
+import org.funcalk.expression.TokenType.PLUS
+import org.funcalk.expression.TokenType.POWER
+import org.funcalk.expression.TokenType.RIGHT_PARENTHESIS
+import org.funcalk.expression.TokenType.SYMBOL
 import java.lang.Math.E
 import java.lang.Math.PI
 

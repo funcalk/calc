@@ -20,4 +20,10 @@ Expression BNF
                      <symbol> |
                      (<expression>)
     <number>     ::= [0-9]+(.[0-9])?
-    <symbol>   ::= [a-zA-Z0-9]+
+    <symbol>     ::= [a-zA-Z_0-9]+
+
+REPL BNF
+--------------
+    <statement>  ::= <expression> |
+                     <assignment>
+    <assignment> ::= <symbol> = <expression>

@@ -1,4 +1,4 @@
-package org.funcalk
+package org.funcalk.expression
 
 import kotlin.math.pow
 
@@ -14,45 +14,45 @@ data class Plus(
   private val left: Expression,
   private val right: Expression
 ) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = left.calculate() + right.calculate()
+  override fun calculate(vars: Map<String, Double>): Double = left.calculate(vars) + right.calculate(vars)
 }
 
 data class Minus(
   private val left: Expression,
   private val right: Expression
 ) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = left.calculate() - right.calculate()
+  override fun calculate(vars: Map<String, Double>): Double = left.calculate(vars) - right.calculate(vars)
 }
 
 data class Mult(
   private val left: Expression,
   private val right: Expression
 ) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = left.calculate() * right.calculate()
+  override fun calculate(vars: Map<String, Double>): Double = left.calculate(vars) * right.calculate(vars)
 }
 
 data class Div(
   private val left: Expression,
   private val right: Expression
 ) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = left.calculate() / right.calculate()
+  override fun calculate(vars: Map<String, Double>): Double = left.calculate(vars) / right.calculate(vars)
 }
 
 data class Power(
   private val left: Expression,
   private val right: Expression
 ) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = left.calculate().pow(right.calculate())
+  override fun calculate(vars: Map<String, Double>): Double = left.calculate(vars).pow(right.calculate(vars))
 }
 
 data class UnaryMinus(private val number: Expression) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = -number.calculate()
+  override fun calculate(vars: Map<String, Double>): Double = -number.calculate(vars)
 }
 
 data class UnaryPlus(private val number: Expression) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = number.calculate()
+  override fun calculate(vars: Map<String, Double>): Double = number.calculate(vars)
 }
 
 data class Var(private val name: String) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = vars[name] ?: throw NoSuchElementException("Unknown variable \"$name\"")
+  override fun calculate(vars: Map<String, Double>): Double = vars[name] ?: throw IllegalArgumentException("Unknown variable \"$name\"")
 }

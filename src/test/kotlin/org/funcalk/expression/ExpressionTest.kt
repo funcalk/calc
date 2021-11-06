@@ -1,4 +1,4 @@
-package org.funcalk
+package org.funcalk.expression
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -66,7 +66,7 @@ internal class ExpressionTest {
   fun `unknown variable`() {
     val exp = Var("x")
 
-    val e = assertThrows<NoSuchElementException> { exp.calculate() }
+    val e = assertThrows<IllegalArgumentException> { exp.calculate() }
     assertThat(e.message?.lowercase()).contains("variable", "x")
   }
 }
