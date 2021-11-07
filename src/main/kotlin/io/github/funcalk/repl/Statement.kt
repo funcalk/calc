@@ -1,6 +1,6 @@
-package org.funcalk.repl
+package io.github.funcalk.repl
 
-import org.funcalk.expression.Expression
+import io.github.funcalk.expression.Expression
 
 sealed class Statement {
   abstract fun evaluate(vars: MutableMap<String, Double>): Double

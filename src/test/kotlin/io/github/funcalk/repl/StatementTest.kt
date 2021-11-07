@@ -1,10 +1,10 @@
-package org.funcalk.repl
+package io.github.funcalk.repl
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
-import org.funcalk.expression.Number
-import org.funcalk.expression.Plus
-import org.funcalk.expression.Var
+import io.github.funcalk.expression.Number
+import io.github.funcalk.expression.Plus
+import io.github.funcalk.expression.Var
 import org.junit.jupiter.api.Test
 
 internal class StatementTest {

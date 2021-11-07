@@ -1,4 +1,4 @@
-package org.funcalk.expression
+package io.github.funcalk.expression
 
 import kotlin.math.pow
 

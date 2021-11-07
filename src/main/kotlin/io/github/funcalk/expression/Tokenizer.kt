@@ -1,4 +1,4 @@
-package org.funcalk.expression
+package io.github.funcalk.expression
 
 internal class Tokenizer(private val input: String) : Sequence<Token> {
   override fun iterator(): Iterator<Token> = TokenIterator(input)

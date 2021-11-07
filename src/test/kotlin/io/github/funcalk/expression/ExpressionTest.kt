@@ -1,4 +1,4 @@
-package org.funcalk.expression
+package io.github.funcalk.expression
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

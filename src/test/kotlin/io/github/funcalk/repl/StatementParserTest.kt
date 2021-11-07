@@ -1,7 +1,7 @@
-package org.funcalk.repl
+package io.github.funcalk.repl
 
 import org.assertj.core.api.Assertions.assertThat
-import org.funcalk.expression.Number
+import io.github.funcalk.expression.Number
 import org.junit.jupiter.api.Test
 
 internal class StatementParserTest {

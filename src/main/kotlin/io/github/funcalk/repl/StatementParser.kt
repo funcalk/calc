@@ -1,6 +1,6 @@
-package org.funcalk.repl
+package io.github.funcalk.repl
 
-import org.funcalk.expression.Parser
+import io.github.funcalk.expression.Parser
 
 class StatementParser(private val input: String) {
   private val statementRegex = Regex("""(?:\s*(\w+)\s*=)?(.*)""")

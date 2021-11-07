@@ -1,6 +1,6 @@
 @file:JvmName("REPL")
 
-package org.funcalk.repl
+package io.github.funcalk.repl
 
 import java.text.DecimalFormat
 

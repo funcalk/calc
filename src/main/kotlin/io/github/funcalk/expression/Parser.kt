@@ -1,13 +1,13 @@
-package org.funcalk.expression
+package io.github.funcalk.expression
 
-import org.funcalk.expression.TokenType.DIVIDE
-import org.funcalk.expression.TokenType.LEFT_PARENTHESIS
-import org.funcalk.expression.TokenType.MINUS
-import org.funcalk.expression.TokenType.MULTIPLY
-import org.funcalk.expression.TokenType.PLUS
-import org.funcalk.expression.TokenType.POWER
-import org.funcalk.expression.TokenType.RIGHT_PARENTHESIS
-import org.funcalk.expression.TokenType.SYMBOL
+import io.github.funcalk.expression.TokenType.DIVIDE
+import io.github.funcalk.expression.TokenType.LEFT_PARENTHESIS
+import io.github.funcalk.expression.TokenType.MINUS
+import io.github.funcalk.expression.TokenType.MULTIPLY
+import io.github.funcalk.expression.TokenType.PLUS
+import io.github.funcalk.expression.TokenType.POWER
+import io.github.funcalk.expression.TokenType.RIGHT_PARENTHESIS
+import io.github.funcalk.expression.TokenType.SYMBOL
 import java.lang.Math.E
 import java.lang.Math.PI
 
