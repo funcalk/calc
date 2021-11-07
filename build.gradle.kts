@@ -1,6 +1,6 @@
 import org.gradle.api.JavaVersion.VERSION_1_8
 
-group = "org.funcalk"
+group = "io.github.funcalk"
 
 plugins {
   java
