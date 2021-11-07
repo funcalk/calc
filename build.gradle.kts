@@ -57,6 +57,36 @@ publishing {
   publications {
     register<MavenPublication>("maven") {
       from(components["java"])
+      pom {
+        name.set("Funcalk Core")
+        description.set("Functional Calculus for Kotlin - Core")
+        url.set("https://github.com/funcalk/funcalk-core")
+        licenses {
+          license {
+            name.set("The Apache License, Version 2.0")
+            url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+          }
+        }
+        developers {
+          developer {
+            id.set("Alekseev-Mikhail")
+            name.set("Mikhail Alekseev")
+            organization.set("funcalk")
+            organizationUrl.set("https://github.com/funcalk")
+          }
+          developer {
+            id.set("oleg-alexeyev")
+            name.set("Oleg Alexeyev")
+            organization.set("funcalk")
+            organizationUrl.set("https://github.com/funcalk")
+          }
+        }
+        scm {
+          connection.set("scm:git:https://github.com/funcalk/funcalk-core.git")
+          developerConnection.set("scm:git:https://github.com/funcalk/funcalk-core.git")
+          url.set("https://github.com/funcalk/funcalk-core")
+        }
+      }
     }
   }
   repositories {
