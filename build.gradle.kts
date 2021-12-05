@@ -5,7 +5,7 @@ group = "io.github.funcalk"
 plugins {
   java
   `maven-publish`
-  kotlin("jvm") version "1.5.31"
+  kotlin("jvm") version "1.6.0"
   id("com.zoltu.git-versioning") version "3.0.3"
   id("com.github.johnrengelman.shadow") version "7.1.0"
 }
@@ -17,8 +17,8 @@ repositories {
 dependencies {
   implementation(kotlin("stdlib-jdk8"))
 
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
   testImplementation("org.assertj:assertj-core:3.21.0")
   testImplementation(kotlin("test"))
 }
