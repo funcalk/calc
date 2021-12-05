@@ -26,6 +26,7 @@ dependencies {
 tasks {
   java {
     withSourcesJar()
+    withJavadocJar()
     sourceCompatibility = VERSION_1_8
     targetCompatibility = VERSION_1_8
   }
