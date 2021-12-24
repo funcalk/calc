@@ -3,6 +3,8 @@ package io.github.funcalk.expression
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import kotlin.Double.Companion.NaN
+import kotlin.Double.Companion.POSITIVE_INFINITY
 import kotlin.test.assertNotNull
 
 internal class ParserTest {
@@ -177,7 +179,7 @@ internal class ParserTest {
 
     val expression = parser.parse()
 
-    assertThat(expression).isEqualTo(Number(Double.POSITIVE_INFINITY))
+    assertThat(expression).isEqualTo(Number(POSITIVE_INFINITY))
   }
   @Test
   fun `NaN value`() {
@@ -185,6 +187,6 @@ internal class ParserTest {
 
     val expression = parser.parse()
 
-    assertThat(expression).isEqualTo(Number(Double.NaN))
+    assertThat(expression).isEqualTo(Number(NaN))
   }
 }
