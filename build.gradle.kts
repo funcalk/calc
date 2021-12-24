@@ -5,7 +5,7 @@ group = "io.github.funcalk"
 plugins {
   java
   `maven-publish`
-  kotlin("jvm") version "1.6.0"
+  kotlin("jvm") version "1.6.10"
   id("com.zoltu.git-versioning") version "3.0.3"
   id("com.github.johnrengelman.shadow") version "7.1.0"
 }
