@@ -1,15 +1,10 @@
 package io.github.funcalk.expression
 
-import io.github.funcalk.expression.TokenType.DIVIDE
-import io.github.funcalk.expression.TokenType.LEFT_PARENTHESIS
-import io.github.funcalk.expression.TokenType.MINUS
-import io.github.funcalk.expression.TokenType.MULTIPLY
-import io.github.funcalk.expression.TokenType.PLUS
-import io.github.funcalk.expression.TokenType.POWER
-import io.github.funcalk.expression.TokenType.RIGHT_PARENTHESIS
-import io.github.funcalk.expression.TokenType.SYMBOL
+import io.github.funcalk.expression.TokenType.*
 import java.lang.Math.E
 import java.lang.Math.PI
+import kotlin.Double.Companion.NaN
+import kotlin.Double.Companion.POSITIVE_INFINITY
 
 class Parser(input: String) {
   private val tokenIterator = Tokenizer(input).iterator()
@@ -88,6 +83,8 @@ class Parser(input: String) {
         val expression = when (token.value.lowercase()) {
           "pi" -> Number(PI)
           "e" -> Number(E)
+          "nan" -> Number(NaN)
+          "inf" -> Number(POSITIVE_INFINITY)
           else -> Var(token.value)
         }
         readNextToken()

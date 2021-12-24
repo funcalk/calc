@@ -170,4 +170,21 @@ internal class ParserTest {
 
     assertThat(expression).isEqualTo(Power(Var("x"), Number(2.0)))
   }
+
+  @Test
+  fun `positive inf value`() {
+    val parser = Parser("inf")
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Number(Double.POSITIVE_INFINITY))
+  }
+  @Test
+  fun `NaN value`() {
+    val parser = Parser("nan")
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Number(Double.NaN))
+  }
 }
