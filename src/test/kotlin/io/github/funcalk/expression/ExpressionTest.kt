@@ -69,4 +69,11 @@ internal class ExpressionTest {
     val e = assertThrows<IllegalArgumentException> { exp.calculate() }
     assertThat(e.message?.lowercase()).contains("variable", "x")
   }
+
+  @Test
+  fun `function call`() {
+    val exp = FunCall(Math::sqrt, Number(4.0))
+
+    assertThat(exp.calculate(mapOf())).isEqualTo(2.0)
+  }
 }

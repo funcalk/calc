@@ -18,7 +18,9 @@ Expression BNF
                      <primary> ^ <primary>
     <primary>    ::= <number> |
                      <symbol> |
-                     (<expression>)
+                     (<expression>) |
+                     <fun-call>   
+    <fun-call>   ::= <symbol>(<expression>)   
     <number>     ::= [0-9]+(.[0-9])?
     <symbol>     ::= [a-zA-Z_0-9]+
 

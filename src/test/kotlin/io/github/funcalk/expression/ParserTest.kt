@@ -181,6 +181,7 @@ internal class ParserTest {
 
     assertThat(expression).isEqualTo(Number(POSITIVE_INFINITY))
   }
+
   @Test
   fun `NaN value`() {
     val parser = Parser("nan")
@@ -188,5 +189,48 @@ internal class ParserTest {
     val expression = parser.parse()
 
     assertThat(expression).isEqualTo(Number(NaN))
+  }
+
+  @Test
+  fun `function call`() {
+    val parser = Parser("sqrt(4)")
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(FunCall(Math::sqrt, Number(4.0)))
+  }
+
+  @Test
+  fun `function call without closing parenthesis`() {
+    val parser = Parser("sqrt(4")
+
+    val e = assertThrows<IllegalArgumentException> { parser.parse() }
+    assertThat(e.message?.lowercase()).contains("expected", ")")
+  }
+
+  @Test
+  fun `function call with argument as expression`() {
+    val parser = Parser("sqrt(2+2)")
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(FunCall(Math::sqrt, Plus(Number(2.0), Number(2.0))))
+  }
+
+  @Test
+  fun `function call as part of expression`() {
+    val parser = Parser("2 + sqrt(4)")
+
+    val expression = parser.parse()
+
+    assertThat(expression).isEqualTo(Plus(Number(2.0), FunCall(Math::sqrt, Number(4.0))))
+  }
+
+  @Test
+  fun `function call with unknown function`() {
+    val parser = Parser("unknown(4)")
+
+    val e = assertThrows<IllegalArgumentException> { parser.parse() }
+    assertThat(e.message?.lowercase()).contains("unknown")
   }
 }

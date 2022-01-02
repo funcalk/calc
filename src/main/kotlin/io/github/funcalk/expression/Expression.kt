@@ -45,14 +45,18 @@ data class Power(
   override fun calculate(vars: Map<String, Double>): Double = left.calculate(vars).pow(right.calculate(vars))
 }
 
-data class UnaryMinus(private val number: Expression) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = -number.calculate(vars)
+data class UnaryMinus(private val expression: Expression) : Expression() {
+  override fun calculate(vars: Map<String, Double>): Double = -expression.calculate(vars)
 }
 
-data class UnaryPlus(private val number: Expression) : Expression() {
-  override fun calculate(vars: Map<String, Double>): Double = number.calculate(vars)
+data class UnaryPlus(private val expression: Expression) : Expression() {
+  override fun calculate(vars: Map<String, Double>): Double = expression.calculate(vars)
 }
 
 data class Var(private val name: String) : Expression() {
   override fun calculate(vars: Map<String, Double>): Double = vars[name] ?: throw IllegalArgumentException("Unknown variable \"$name\"")
+}
+
+data class FunCall(private val function: (Double) -> Double, private val argument: Expression) : Expression() {
+  override fun calculate(vars: Map<String, Double>): Double = function.invoke(argument.calculate(vars))
 }

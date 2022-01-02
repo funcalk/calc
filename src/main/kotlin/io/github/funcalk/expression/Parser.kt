@@ -13,6 +13,17 @@ import java.lang.Math.PI
 import kotlin.Double.Companion.NaN
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
+private val CONSTANTS = mapOf(
+  "pi" to Number(PI),
+  "e" to Number(E),
+  "nan" to Number(NaN),
+  "inf" to Number(POSITIVE_INFINITY)
+)
+
+private val FUNCTIONS = mapOf(
+  "sqrt" to Math::sqrt,
+)
+
 class Parser(input: String) {
   private val tokenIterator = Tokenizer(input).iterator()
   private var currentToken: Token? = null
@@ -87,15 +98,18 @@ class Parser(input: String) {
         expression
       }
       SYMBOL -> {
-        val expression = when (token.value.lowercase()) {
-          "pi" -> Number(PI)
-          "e" -> Number(E)
-          "nan" -> Number(NaN)
-          "inf" -> Number(POSITIVE_INFINITY)
-          else -> Var(token.value)
-        }
+        val name = token.value
         readNextToken()
-        expression
+        if (currentToken?.type == LEFT_PARENTHESIS) {
+          val argument = parseExpression()
+          if (currentToken?.type != RIGHT_PARENTHESIS) {
+            throw IllegalArgumentException("Expected )")
+          }
+          readNextToken()
+          FunCall(FUNCTIONS[name] ?: throw IllegalArgumentException("Unknown function: $name"), argument)
+        } else {
+          CONSTANTS[name.lowercase()] ?: Var(name)
+        }
       }
       else -> {
         readNextToken()
