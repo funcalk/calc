@@ -1,2 +1,2 @@
-rootProject.name = "funcalk-core"
+rootProject.name = "funcalk"
 
