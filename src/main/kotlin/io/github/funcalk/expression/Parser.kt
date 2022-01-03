@@ -10,6 +10,8 @@ import io.github.funcalk.expression.TokenType.RIGHT_PARENTHESIS
 import io.github.funcalk.expression.TokenType.SYMBOL
 import java.lang.Math.E
 import java.lang.Math.PI
+import java.lang.Math.asin
+import java.lang.Math.cos
 import kotlin.Double.Companion.NaN
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
@@ -22,6 +24,16 @@ private val CONSTANTS = mapOf(
 
 private val FUNCTIONS = mapOf(
   "sqrt" to Math::sqrt,
+  "sin" to Math::sin,
+  "cos" to Math::cos,
+  "tan" to Math::tan,
+  "asin" to Math::asin,
+  "acos" to Math::acos,
+  "atan" to Math::atan,
+  "ln" to Math::log,
+  "log10" to Math::log10,
+  "cbrt" to Math::cbrt,
+  "abs" to Math::abs
 )
 
 class Parser(input: String) {
