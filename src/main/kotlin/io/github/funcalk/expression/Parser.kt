@@ -10,13 +10,11 @@ import io.github.funcalk.expression.TokenType.RIGHT_PARENTHESIS
 import io.github.funcalk.expression.TokenType.SYMBOL
 import java.lang.Math.E
 import java.lang.Math.PI
-import java.lang.Math.asin
-import java.lang.Math.cos
 import kotlin.Double.Companion.NaN
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
 private val CONSTANTS = mapOf(
-  "pi" to Number(PI),
+  "pi" to Number(PI ),
   "e" to Number(E),
   "nan" to Number(NaN),
   "inf" to Number(POSITIVE_INFINITY)
