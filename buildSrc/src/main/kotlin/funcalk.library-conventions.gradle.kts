@@ -7,7 +7,6 @@ plugins {
     `maven-publish`
     kotlin("jvm")
     id("com.zoltu.git-versioning")
-    id("com.github.johnrengelman.shadow")
 }
 
 repositories {

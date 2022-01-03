@@ -9,5 +9,4 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     implementation("gradle.plugin.com.zoltu.gradle.plugin:git-versioning:3.0.3")
-    implementation("gradle.plugin.com.github.johnrengelman:shadow:7.1.2")
 }

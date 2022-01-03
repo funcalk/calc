@@ -1,5 +1,6 @@
 plugins {
     id("funcalk.library-conventions")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 tasks {
